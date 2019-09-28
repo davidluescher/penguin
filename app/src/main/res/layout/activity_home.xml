@@ -4,42 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".ui.HomeActivity">
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/heroSlogan"
+        android:layout_below="@id/lblTitle"
         android:layout_centerHorizontal="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/heroSlogan"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textAlignment="center" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/view2"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:elevation="12dp"
-        android:id="@+id/view2"
-        app:cardCornerRadius="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:elevation="12dp"
+        app:cardCornerRadius="100dp">
+
         <ImageView
-            android:layout_height="200dp"
-            android:layout_width="match_parent"
             android:id="@+id/imageView1"
-            android:src="@drawable/ic_penguin_colony_at_start"
-            android:scaleType="centerCrop"/>
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_penguin_colony_at_start" />
     </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btnAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/call_to_action"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginBottom="60dp"
+        android:text="@string/call_to_action" />
 
 </RelativeLayout>

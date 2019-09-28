@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">savethepinguins</string>
+    <string name="app_name">Save the Penguins!</string>
     <string name="call_to_action">Log meal</string>
     <string name="heroSlogan">Welcome, this is your penguin colony. Log your meals and start saving the penguins today!</string>
 </resources>
