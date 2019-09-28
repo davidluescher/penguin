@@ -5,21 +5,32 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.webkit.WebSettings
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
+import com.anychart.sample.charts.FoodRatingActivity
 import kotlinx.android.synthetic.main.activity_impact.*
 
 class ImpactActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_impact)
+
+        val webSettings = web_view.settings
+        webSettings.javaScriptEnabled = true
+
+        val gif_penguin = "file:android_asset/penguin_business.gif"
+        web_view.loadUrl(gif_penguin)
+
         btnAction.setOnClickListener {
-            startActivity(Intent(this, DetailRatingActivity::class.java))
+            startActivity(Intent(this, FoodRatingActivity::class.java))
             finish()
         }
-    }
 
+    }
+/*
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         val filepath: String? = intent.getStringExtra(HomeActivity.PHOTO_PATH)
@@ -66,5 +77,5 @@ class ImpactActivity : AppCompatActivity() {
             imgTest.setImageBitmap(bitmap)
         }
     }
+ */
 }
-
