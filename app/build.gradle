@@ -34,4 +34,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
     implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
