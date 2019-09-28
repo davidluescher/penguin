@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
 import ch.hackzurich.savethepinguins.dto.Prediction
+import ch.hackzurich.savethepinguins.helper.SharedPreferencesHelper
 import ch.hackzurich.savethepinguins.network.Network
 import com.anychart.sample.charts.FoodRatingActivity
 import kotlinx.android.synthetic.main.activity_impact.*
@@ -58,6 +59,7 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
 
     override fun predictionReceived(prediction: Prediction) {
         score = prediction.overallScore
+        SharedPreferencesHelper.writeScore(this, score)
         val gifPenguin =
             if (prediction.overallScore > 7) {
                 "file:android_asset/penguin_angry.gif"

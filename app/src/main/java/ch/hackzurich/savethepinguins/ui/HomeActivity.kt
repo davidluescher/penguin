@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import ch.hackzurich.savethepinguins.R
+import ch.hackzurich.savethepinguins.helper.SharedPreferencesHelper
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File
@@ -55,7 +56,8 @@ class HomeActivity : AppCompatActivity() {
                                 type = "image/jpg"
                             }
 
-                            val chooser = Intent.createChooser(requestFileIntent, "Some text here")
+                            val chooser =
+                                Intent.createChooser(requestFileIntent, "Choose your Meal")
                             chooser.putExtra(
                                 Intent.EXTRA_INITIAL_INTENTS,
                                 arrayOf(takePictureIntent)
@@ -71,6 +73,22 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val score = SharedPreferencesHelper.getScore(this)
+
+        if (score > 8) {
+            imageView1.setImageDrawable(getDrawable(R.drawable.ic_penguin))
+        } else if (score > 5) {
+            imageView1.setImageDrawable(getDrawable(R.drawable.ic_penguin_colony_at_start))
+        } else if (score > 3) {
+            imageView1.setImageDrawable(getDrawable(R.drawable.ic_penguin_colony_healthy_t1))
+        } else {
+            imageView1.setImageDrawable(getDrawable(R.drawable.ic_penguin_colony_healthy_t2))
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
