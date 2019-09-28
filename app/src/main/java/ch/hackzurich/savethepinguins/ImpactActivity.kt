@@ -5,11 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class ImpactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        btnAction.setOnClickListener { startActivity(Intent(this, ImpactActivity::class.java)) }
+        setContentView(R.layout.activity_impact)
+        btnAction.setOnClickListener {
+            startActivity(Intent(this, DetailRatingActivity::class.java))
+            finish()
+        }
     }
 }
