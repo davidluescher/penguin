@@ -10,10 +10,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
 import ch.hackzurich.savethepinguins.dto.Prediction
+import ch.hackzurich.savethepinguins.dto.PredictionSave
+import ch.hackzurich.savethepinguins.helper.PredictionRoomDatabase
 import ch.hackzurich.savethepinguins.helper.SharedPreferencesHelper
 import ch.hackzurich.savethepinguins.network.Network
 import com.anychart.sample.charts.FoodRatingActivity
 import kotlinx.android.synthetic.main.activity_impact.*
+import java.util.*
 
 
 class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
@@ -98,7 +101,31 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
             }, 1200)
         }
 
+        val filepath: String? = intent.getStringExtra(HomeActivity.PHOTO_PATH)
+        val fileUri: Uri? = intent.getParcelableExtra(HomeActivity.PHOTO_URI) as Uri
 
+        val predictionDao = PredictionRoomDatabase.getDatabase(application).predictionDao()
+        if (filepath != null) {
+            predictionDao.insert(
+                PredictionSave(
+                    Date().time,
+                    prediction.name,
+                    prediction.overallScore,
+                    filepath,
+                    true
+                )
+            )
+        } else if (fileUri != null) {
+            predictionDao.insert(
+                PredictionSave(
+                    Date().time,
+                    prediction.name,
+                    prediction.overallScore,
+                    fileUri.path,
+                    false
+                )
+            )
+        }
     }
 
     override fun errorOccured() {
