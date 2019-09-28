@@ -1,18 +1,14 @@
 package ch.hackzurich.savethepinguins
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class ImpactActivity : AppCompatActivity() {
+class DetailRatingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_impact)
-        btnAction.setOnClickListener {
-            startActivity(Intent(this, DetailRatingActivity::class.java))
-            finish()
-        }
+        setContentView(R.layout.activity_rating)
+        btnAction.setOnClickListener { finish() }
     }
 }

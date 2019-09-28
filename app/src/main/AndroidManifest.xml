@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ImpactActivity" />
+        <activity android:name=".DetailRatingActivity" />
     </application>
 
 </manifest>
