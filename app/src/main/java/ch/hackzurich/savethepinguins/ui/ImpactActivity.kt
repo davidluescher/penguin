@@ -14,6 +14,11 @@ import kotlinx.android.synthetic.main.activity_impact.*
 
 
 class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
+    var score: Int = 0
+
+    companion object {
+        val SCORE = "Score"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +28,9 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
         webSettings.javaScriptEnabled = true
 
         btnAction.setOnClickListener {
-            startActivity(Intent(this, FoodRatingActivity::class.java))
+            val intent = Intent(this, FoodRatingActivity::class.java)
+            intent.putExtra(SCORE, score)
+            startActivity(intent)
             finish()
         }
 
@@ -50,6 +57,7 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
     }
 
     override fun predictionReceived(prediction: Prediction) {
+        score = prediction.overallScore
         val gifPenguin =
             if (prediction.overallScore > 7) {
                 "file:android_asset/penguin_angry.gif"

@@ -4,6 +4,7 @@ import android.os.Bundle
 
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
+import ch.hackzurich.savethepinguins.ui.ImpactActivity
 
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.SingleValueDataSet
@@ -16,6 +17,8 @@ class FoodRatingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_rating)
+
+        val score = intent.getIntExtra(ImpactActivity.SCORE, 0)
 
         any_chart_view.setProgressBar(progress_bar)
 
