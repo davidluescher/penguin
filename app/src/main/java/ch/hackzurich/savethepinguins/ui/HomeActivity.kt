@@ -1,4 +1,4 @@
-package ch.hackzurich.savethepinguins
+package ch.hackzurich.savethepinguins.ui
 
 import android.Manifest
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import ch.hackzurich.savethepinguins.R
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File

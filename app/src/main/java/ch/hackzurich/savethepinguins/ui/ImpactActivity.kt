@@ -1,4 +1,4 @@
-package ch.hackzurich.savethepinguins
+package ch.hackzurich.savethepinguins.ui
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
+import ch.hackzurich.savethepinguins.R
 import kotlinx.android.synthetic.main.activity_impact.*
 
 class ImpactActivity : AppCompatActivity() {
