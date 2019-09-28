@@ -1,13 +1,21 @@
 package ch.hackzurich.savethepinguins.ui
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
+import ch.hackzurich.savethepinguins.network.Network
+import ch.hackzurich.savethepinguins.network.RetrofitClientInstance
+import ch.hackzurich.savethepinguins.network.VisionService
 import kotlinx.android.synthetic.main.activity_impact.*
+import java.io.ByteArrayOutputStream
+
 
 class ImpactActivity : AppCompatActivity() {
 
@@ -64,6 +72,55 @@ class ImpactActivity : AppCompatActivity() {
         }
         BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
             imgTest.setImageBitmap(bitmap)
+
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val imageBytes = baos.toByteArray()
+            val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+
+            val service =
+                RetrofitClientInstance.retrofit.create(VisionService::class.java)
+            /*val request = ImageServiceRequest(imageString)
+            val call = service.getPrediction("Bearer:5ced68e643ecc02d1bc07b557c941be2aa90976b", request)
+            call.enqueue(object : Callback<Prediction> {
+                override fun onResponse(call: Call<Prediction>, response: Response<Prediction>) {
+                    Toast.makeText(this@ImpactActivity, "OK", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onFailure(call: Call<Prediction>, t: Throwable) {
+                    Toast.makeText(this@ImpactActivity, "NOK", Toast.LENGTH_LONG).show()
+                }
+            })*/
+            /*val filePart = MultipartBody.Part.createFormData(
+                "file",
+                File(currentPhotoPath).getName(),
+                RequestBody.create(MediaType.parse("image/jpg"), File(currentPhotoPath))
+            )
+            val call2 =
+                service.getPredictionMultipart("Bearer:5ced68e643ecc02d1bc07b557c941be2aa90976b", filePart)
+            call2.enqueue(object : Callback<Prediction> {
+                override fun onResponse(call: Call<Prediction>, response: Response<Prediction>) {
+                    Toast.makeText(this@ImpactActivity, "OK", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onFailure(call: Call<Prediction>, t: Throwable) {
+                    Toast.makeText(this@ImpactActivity, "NOK", Toast.LENGTH_LONG).show()
+                }
+            })*/
+            /*val request = FakeImageServiceRequest()
+            val call = service.getPredictionFake("Bearer:5ced68e643ecc02d1bc07b557c941be2aa90976b", request)
+            call.enqueue(object : Callback<Prediction> {
+                override fun onResponse(call: Call<Prediction>, response: Response<Prediction>) {
+                    Toast.makeText(this@ImpactActivity, "OK", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onFailure(call: Call<Prediction>, t: Throwable) {
+                    Toast.makeText(this@ImpactActivity, "NOK", Toast.LENGTH_LONG).show()
+                }
+            })*/
+            AsyncTask.execute {
+                Network.getPrediction()
+            }
         }
     }
 }
