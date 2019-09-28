@@ -34,16 +34,19 @@ class HomeActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_home -> {
+                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_history -> {
                     val newIntent = Intent(this, HistoryActivity::class.java)
                     startActivity(newIntent)
                     finish()
+                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_account -> {
+                    return@setOnNavigationItemSelectedListener false
                 }
             }
-            return@setOnNavigationItemSelectedListener true
+            return@setOnNavigationItemSelectedListener false
         }
 
 

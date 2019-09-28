@@ -39,14 +39,16 @@ class HistoryActivity : AppCompatActivity() {
                     val newIntent = Intent(this, HomeActivity::class.java)
                     startActivity(newIntent)
                     finish()
+                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_history -> {
-
+                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_account -> {
+                    return@setOnNavigationItemSelectedListener false
                 }
             }
-            return@setOnNavigationItemSelectedListener true
+            return@setOnNavigationItemSelectedListener false
         }
         bottom_navigation.selectedItemId = R.id.action_history
     }
