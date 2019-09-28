@@ -1,5 +1,6 @@
 package ch.hackzurich.savethepinguins.ui
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,23 @@ class HistoryActivity : AppCompatActivity() {
             val predictions = predictionDao.getAllPredictions()
             runOnUiThread { viewAdapter.addData(predictions) }
         }
+
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_home -> {
+                    val newIntent = Intent(this, HomeActivity::class.java)
+                    startActivity(newIntent)
+                    finish()
+                }
+                R.id.action_history -> {
+
+                }
+                R.id.action_account -> {
+                }
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+        bottom_navigation.selectedItemId = R.id.action_history
     }
 
 }
