@@ -2,4 +2,8 @@
     <string name="app_name">Save the Penguins!</string>
     <string name="call_to_action">Log meal</string>
     <string name="heroSlogan">Welcome, this is your penguin colony. Log your meals and start saving the penguins today!</string>
+    <string name="see_impact">See Impact</string>
+    <string name="impact_good">Good!</string>
+    <string name="impact_neutral">OK!</string>
+    <string name="impact_bad">Bad!</string>
 </resources>

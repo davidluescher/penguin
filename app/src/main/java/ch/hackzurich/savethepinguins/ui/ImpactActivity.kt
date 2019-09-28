@@ -4,7 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
 import ch.hackzurich.savethepinguins.dto.Prediction
@@ -69,7 +71,28 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
                 "file:android_asset/penguin_business.gif"
             }
 
-        runOnUiThread { web_view.loadUrl(gifPenguin) }
+        runOnUiThread {
+            web_view.loadUrl(gifPenguin)
+            lblTitle.text = getString(
+                if (prediction.overallScore > 7) {
+                    R.string.impact_bad
+                } else if (prediction.overallScore < 5) {
+                    R.string.impact_good
+                } else {
+                    R.string.impact_neutral
+                }
+            )
+
+            Handler().postDelayed({
+                runOnUiThread {
+                    web_view.visibility = View.VISIBLE
+                    btnAction.visibility = View.VISIBLE
+                    lblTitle.visibility = View.VISIBLE
+                    loadingView.visibility = View.GONE
+                }
+            }, 1200)
+        }
+
 
     }
 
