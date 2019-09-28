@@ -9,4 +9,5 @@
     <string name="motivation_good">Keep Going! Your penguin population increased!</string>
     <string name="motivation_neutral">You\'re on a good way, but you can do better!</string>
     <string name="motivation_bad">Oh Dear! Your penguin population just decreased!</string>
+    <string name="history">History</string>
 </resources>

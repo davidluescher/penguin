@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface PredictionDao {
 
-    @Query("SELECT * from prediction_table ORDER BY datetime ASC")
+    @Query("SELECT * from prediction_table ORDER BY datetime DESC")
     fun getAllPredictions(): List<PredictionSave>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -30,6 +30,9 @@
         <activity
             android:name="com.anychart.sample.charts.FoodRatingActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.HistoryActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

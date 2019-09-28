@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import ch.hackzurich.savethepinguins.R
 import ch.hackzurich.savethepinguins.helper.SharedPreferencesHelper
-import com.anychart.sample.charts.FoodRatingActivity
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File
@@ -32,13 +31,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        ;
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_home -> {
                 }
                 R.id.action_history -> {
-                    val newIntent = Intent(this, DetailRatingActivity::class.java)
+                    val newIntent = Intent(this, HistoryActivity::class.java)
                     startActivity(newIntent)
                     finish()
                 }

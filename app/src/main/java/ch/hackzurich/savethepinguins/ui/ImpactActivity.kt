@@ -103,6 +103,7 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
 
         val filepath: String? = intent.getStringExtra(HomeActivity.PHOTO_PATH)
         val fileUri: Uri? = intent.getParcelableExtra(HomeActivity.PHOTO_URI) as Uri
+        val picturePath = fileUri?.let { getPicturePath(it) }
 
         val predictionDao = PredictionRoomDatabase.getDatabase(application).predictionDao()
         if (filepath != null) {
@@ -115,13 +116,13 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
                     true
                 )
             )
-        } else if (fileUri != null) {
+        } else if (fileUri != null && picturePath != null) {
             predictionDao.insert(
                 PredictionSave(
                     Date().time,
                     prediction.name,
                     prediction.overallScore,
-                    fileUri.path,
+                    picturePath,
                     false
                 )
             )
