@@ -12,16 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar" >
-        <activity android:name=".ui.HomeActivity">
+        <activity
+            android:name=".ui.HomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ImpactActivity" />
-        <activity android:name=".ui.DetailRatingActivity" />
-        <activity android:name="com.anychart.sample.charts.FoodRatingActivity" />
+        <activity
+            android:name=".ui.ImpactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.DetailRatingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anychart.sample.charts.FoodRatingActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
