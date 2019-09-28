@@ -1,14 +1,20 @@
 package com.anychart.sample.charts
 
 import android.os.Bundle
+import android.view.View
 
 import androidx.appcompat.app.AppCompatActivity
-import ch.hackzurich.savethepinguins.R
 import ch.hackzurich.savethepinguins.ui.ImpactActivity
 
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.SingleValueDataSet
 import kotlinx.android.synthetic.main.activity_food_rating.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import ch.hackzurich.savethepinguins.R
+import android.view.ViewTreeObserver
+import ch.hackzurich.savethepinguins.ui.GradientHoleDrawer
 
 
 
@@ -17,6 +23,39 @@ class FoodRatingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_rating)
+
+        hv.setOnClickListener { object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                hv.setDrawer(null)
+                hv.setVisibility(View.GONE)
+            }
+        } }
+
+
+        val mBackgroundColor = 0x80000000
+
+        ll_container.viewTreeObserver.addOnPreDrawListener(object :
+            ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                ll_container.viewTreeObserver.removeOnPreDrawListener(this)
+
+                var width = 0
+                var height = 0
+                var i = 0
+                val count = ll_container.childCount
+                while (i < count) {
+                    val child = ll_container.getChildAt(i)
+                    width = Math.max(width, child.width)
+                    height += child.height
+                    i++
+                }
+
+                var mHoleRadius =
+                    (Math.sqrt((width * width + height * height).toDouble()) / 2 + 16).toInt()
+
+                return true
+            }
+        })
 
         val score = intent.getIntExtra(ImpactActivity.SCORE, 0)
 
@@ -39,7 +78,7 @@ class FoodRatingActivity : AppCompatActivity() {
             .radius(80)
             .sweepAngle(300)
             .width(3)
-            /*.ticks("{ type: 'line', length: 4, position: 'outside' }")*/
+        /*.ticks("{ type: 'line', length: 4, position: 'outside' }")*/
 
         /*circularGauge.axis(0).labels().position("outside")*/
 
