@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".ui.ImpactActivity" />
         <activity android:name=".ui.DetailRatingActivity" />
+        <activity android:name="com.anychart.sample.charts.FoodRatingActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
