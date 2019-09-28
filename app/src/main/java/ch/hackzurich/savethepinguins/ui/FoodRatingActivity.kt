@@ -97,7 +97,7 @@ class FoodRatingActivity : AppCompatActivity() {
             1,
             "{\n" +
                     "    from: 3,\n" +
-                    "    to: 7,\n" +
+                    "    to: 8,\n" +
                     "    position: 'inside',\n" +
                     "    fill: '#fccd30',\n" +
                     "    stroke: '1 #000',\n" +
@@ -112,7 +112,7 @@ class FoodRatingActivity : AppCompatActivity() {
         circularGauge.range(
             2,
             "{\n" +
-                    "    from: 7,\n" +
+                    "    from: 8,\n" +
                     "    to: 10,\n" +
                     "    position: 'inside',\n" +
                     "    fill: '#e02f1b',\n" +
