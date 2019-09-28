@@ -1,5 +1,6 @@
 package ch.hackzurich.savethepinguins
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File
 import java.io.IOException
@@ -15,7 +17,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
-    val PHOTO_PATH: String = "PhotoPath"
+    companion object {
+        val PHOTO_PATH: String = "PhotoPath"
+        val PHOTO_URI: String = "PhotoUri"
+    }
+
     private var currentPhotoPath: String? = null
     private val REQUEST_TAKE_PHOTO: Int = 42
 
@@ -23,39 +29,44 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         btnAction.setOnClickListener {
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                // Ensure that there's a camera activity to handle the intent
-                if (takePictureIntent.resolveActivity(packageManager) != null) {
-                    // Create the File where the photo should go
-                    val photoFile: File? = try {
-                        createImageFile()
-                    } catch (ex: IOException) {
-                        // Error occurred while creating the File
-                        Toast.makeText(this, "Error while creating the file", Toast.LENGTH_LONG)
-                            .show()
-                        null
-                    }
-                    // Continue only if the File was successfully created
-                    photoFile?.also {
-                        val photoURI: Uri = FileProvider.getUriForFile(
-                            this,
-                            "ch.hackzurich.savethepinguins",
-                            it
-                        )
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            runWithPermissions(Manifest.permission.READ_EXTERNAL_STORAGE) {
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                    // Ensure that there's a camera activity to handle the intent
+                    if (takePictureIntent.resolveActivity(packageManager) != null) {
+                        // Create the File where the photo should go
+                        val photoFile: File? = try {
+                            createImageFile()
+                        } catch (ex: IOException) {
+                            // Error occurred while creating the File
+                            Toast.makeText(this, "Error while creating the file", Toast.LENGTH_LONG)
+                                .show()
+                            null
+                        }
+                        // Continue only if the File was successfully created
+                        photoFile?.also {
+                            val photoURI: Uri = FileProvider.getUriForFile(
+                                this,
+                                "ch.hackzurich.savethepinguins",
+                                it
+                            )
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                            val requestFileIntent = Intent(Intent.ACTION_PICK).apply {
+                                type = "image/jpg"
+                            }
+
+                            val chooser = Intent.createChooser(requestFileIntent, "Some text here")
+                            chooser.putExtra(
+                                Intent.EXTRA_INITIAL_INTENTS,
+                                arrayOf(takePictureIntent)
+                            )
+                            startActivityForResult(chooser, REQUEST_TAKE_PHOTO)
+                        }
+                    } else {
                         val requestFileIntent = Intent(Intent.ACTION_PICK).apply {
                             type = "image/jpg"
                         }
-
-                        val chooser = Intent.createChooser(requestFileIntent, "Some text here")
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePictureIntent))
-                        startActivityForResult(chooser, REQUEST_TAKE_PHOTO)
+                        startActivityForResult(requestFileIntent, REQUEST_TAKE_PHOTO)
                     }
-                } else {
-                    val requestFileIntent = Intent(Intent.ACTION_PICK).apply {
-                        type = "image/jpg"
-                    }
-                    startActivityForResult(requestFileIntent, REQUEST_TAKE_PHOTO)
                 }
             }
         }
@@ -69,7 +80,7 @@ class HomeActivity : AppCompatActivity() {
                 intent.putExtra(PHOTO_PATH, currentPhotoPath)
             } else {
                 data.data?.also { returnUri ->
-                    intent.putExtra(PHOTO_PATH, returnUri)
+                    intent.putExtra(PHOTO_URI, returnUri)
                 }
             }
             startActivity(intent)
