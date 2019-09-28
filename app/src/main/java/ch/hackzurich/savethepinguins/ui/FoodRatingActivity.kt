@@ -27,7 +27,7 @@ class FoodRatingActivity : AppCompatActivity() {
         lblMotivation.text = getString(
             if (score > 7) {
                 R.string.motivation_bad
-            } else if (score < 5) {
+            } else if (score < 4) {
                 R.string.motivation_good
             } else {
                 R.string.motivation_neutral
@@ -45,7 +45,7 @@ class FoodRatingActivity : AppCompatActivity() {
             .sweepAngle(360)
 
         /* TODO: Set value of gauge needle */
-        val currentValue = 13.8
+        val currentValue = score
         circularGauge.data(SingleValueDataSet(arrayOf(currentValue)))
 
         circularGauge.axis(0)
@@ -59,8 +59,8 @@ class FoodRatingActivity : AppCompatActivity() {
 
         /* TODO: Set min and max values for CO2/g" */
         circularGauge.axis(0).scale()
-            .minimum(0)
-            .maximum(100)
+            .minimum(1)
+            .maximum(10)
 
         circularGauge.needle(0)
             .stroke(null)
@@ -80,10 +80,10 @@ class FoodRatingActivity : AppCompatActivity() {
         circularGauge.range(
             0,
             "{\n" +
-                    "    from: 0,\n" +
-                    "    to: 10,\n" +
+                    "    from: 1,\n" +
+                    "    to: 3,\n" +
                     "    position: 'inside',\n" +
-                    "    fill: '#045D56',\n" +
+                    "    fill: '#32a852',\n" +
                     "    stroke: '1 #000',\n" +
                     "    startSize: 6,\n" +
                     "    endSize: 6,\n" +
@@ -96,10 +96,10 @@ class FoodRatingActivity : AppCompatActivity() {
         circularGauge.range(
             1,
             "{\n" +
-                    "    from: 10,\n" +
-                    "    to: 20,\n" +
+                    "    from: 3,\n" +
+                    "    to: 7,\n" +
                     "    position: 'inside',\n" +
-                    "    fill: '#1EB980',\n" +
+                    "    fill: '#fccd30',\n" +
                     "    stroke: '1 #000',\n" +
                     "    startSize: 6,\n" +
                     "    endSize: 6,\n" +
@@ -112,128 +112,16 @@ class FoodRatingActivity : AppCompatActivity() {
         circularGauge.range(
             2,
             "{\n" +
-                    "    from: 20,\n" +
-                    "    to: 30,\n" +
+                    "    from: 7,\n" +
+                    "    to: 10,\n" +
                     "    position: 'inside',\n" +
-                    "    fill: '#AED581',\n" +
+                    "    fill: '#e02f1b',\n" +
                     "    stroke: '1 #000',\n" +
                     "    startSize: 6,\n" +
                     "    endSize: 6,\n" +
                     "    radius: 80,\n" +
                     "    zIndex: 1\n" +
                     "  }"
-        )
-
-        /* Fourth section of the gauge chart */
-        circularGauge.range(
-            3,
-            "{\n" +
-                    "    from: 30,\n" +
-                    "    to: 40,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#C0CA33',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }"
-        )
-
-        /* Fifth section of the gauge chart */
-        circularGauge.range(
-            4,
-            "{\n" +
-                    "    from: 40,\n" +
-                    "    to: 50,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#FFEB3B',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }"
-        )
-
-        /* Sixth section of the gauge chart */
-        circularGauge.range(
-            5,
-            "{\n" +
-                    "    from: 50,\n" +
-                    "    to: 60,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#FFC107',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }"
-        )
-
-        /* Seventh section of the gauge chart */
-        circularGauge.range(
-            6,
-            "{\n" +
-                    "    from: 60,\n" +
-                    "    to: 70,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#FFA000',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }"
-        )
-
-        /* Eighth section of the gauge chart */
-        circularGauge.range(
-            7,
-            "{\n" +
-                    "    from: 70,\n" +
-                    "    to: 80,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#EF6C00',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }"
-        )
-
-        /* Ninth section of the gauge chart */
-        circularGauge.range(
-            8,
-            "{\n" +
-                    "    from: 80,\n" +
-                    "    to: 90,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#FF8A65',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }"
-        )
-
-        /* Tenth section of the gauge chart */
-        circularGauge.range(
-            9,
-            ("{\n" +
-                    "    from: 80,\n" +
-                    "    to: 100,\n" +
-                    "    position: 'inside',\n" +
-                    "    fill: '#BF360C',\n" +
-                    "    stroke: '1 #000',\n" +
-                    "    startSize: 6,\n" +
-                    "    endSize: 6,\n" +
-                    "    radius: 80,\n" +
-                    "    zIndex: 1\n" +
-                    "  }")
         )
 
         any_chart_view.setChart(circularGauge)
