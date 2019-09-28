@@ -18,9 +18,11 @@ import kotlinx.android.synthetic.main.activity_impact.*
 
 class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
     var score: Int = 0
+    var name: String = ""
 
     companion object {
         val SCORE = "Score"
+        val NAME = "Name"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +33,11 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
         webSettings.javaScriptEnabled = true
 
         btnAction.setOnClickListener {
-            val intent = Intent(this, FoodRatingActivity::class.java)
-            intent.putExtra(SCORE, score)
-            startActivity(intent)
+            val newIntent = Intent(this, FoodRatingActivity::class.java)
+            newIntent.putExtra(SCORE, score)
+            newIntent.putExtra(NAME, name)
+            newIntent.putExtras(intent.extras)
+            startActivity(newIntent)
             finish()
         }
 
@@ -61,6 +65,7 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
 
     override fun predictionReceived(prediction: Prediction) {
         score = prediction.overallScore
+        name = prediction.name
         SharedPreferencesHelper.writeScore(this, score)
         val gifPenguin =
             if (prediction.overallScore > 7) {
