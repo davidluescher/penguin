@@ -1,18 +1,19 @@
 package ch.hackzurich.savethepinguins.ui
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
-import android.webkit.WebSettings
 import androidx.appcompat.app.AppCompatActivity
 import ch.hackzurich.savethepinguins.R
+import ch.hackzurich.savethepinguins.dto.Prediction
+import ch.hackzurich.savethepinguins.network.Network
 import com.anychart.sample.charts.FoodRatingActivity
 import kotlinx.android.synthetic.main.activity_impact.*
 
-class ImpactActivity : AppCompatActivity() {
 
+class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,15 +22,52 @@ class ImpactActivity : AppCompatActivity() {
         val webSettings = web_view.settings
         webSettings.javaScriptEnabled = true
 
-        val gif_penguin = "file:android_asset/penguin_business.gif"
-        web_view.loadUrl(gif_penguin)
-
         btnAction.setOnClickListener {
             startActivity(Intent(this, FoodRatingActivity::class.java))
             finish()
         }
 
+        AsyncTask.execute {
+            val filepath: String? = intent.getStringExtra(HomeActivity.PHOTO_PATH)
+            var id = 0
+            if (filepath != null) {
+                //notYetSupported
+            } else {
+                val fileUri: Uri = intent.getParcelableExtra(HomeActivity.PHOTO_URI) as Uri
+                val picturePath = getPicturePath(fileUri)
+                if (picturePath.endsWith("pizza2.jpg")) {
+                    id = 1
+                } else if (picturePath.endsWith("lasagne.jpg")) {
+                    id = 3
+                } else if (picturePath.endsWith("hotdog.jpg")) {
+                    id = 2
+                } else if (picturePath.endsWith("plum.jpg")) {
+                    id = 0
+                }
+            }
+            Network.getPrediction(id, this)
+        }
     }
+
+    override fun predictionReceived(prediction: Prediction) {
+        val gifPenguin =
+            if (prediction.overallScore > 7) {
+                "file:android_asset/penguin_angry.gif"
+            } else if (prediction.overallScore < 5) {
+                "file:android_asset/penguin_dancing.gif"
+            } else {
+                "file:android_asset/penguin_business.gif"
+            }
+
+        runOnUiThread { web_view.loadUrl(gifPenguin) }
+
+    }
+
+    override fun errorOccured() {
+        //Oops?
+    }
+
+
 /*
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -40,10 +78,10 @@ class ImpactActivity : AppCompatActivity() {
             val fileUri: Uri = intent.getParcelableExtra(HomeActivity.PHOTO_URI) as Uri
             setPic(getPicture(fileUri))
         }
-    }
+    }*/
 
 
-    fun getPicture(selectedImage: Uri): String {
+    fun getPicturePath(selectedImage: Uri): String {
         val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = contentResolver.query(selectedImage, filePathColumn, null, null, null)
         cursor.moveToFirst()
@@ -52,7 +90,7 @@ class ImpactActivity : AppCompatActivity() {
         cursor.close()
         return picturePath
     }
-
+/*
     private fun setPic(currentPhotoPath: String) {
         // Get the dimensions of the View
         val targetW: Int = imgTest.width
