@@ -12,12 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="30dp"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
     <TextView
@@ -60,5 +60,15 @@
         android:layout_marginBottom="60dp"
         android:padding="24dp"
         android:text="@string/call_to_action" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white" />
 
 </RelativeLayout>
