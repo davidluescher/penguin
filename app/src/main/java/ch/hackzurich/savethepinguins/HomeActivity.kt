@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
         btnAction.setOnClickListener {
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                 // Ensure that there's a camera activity to handle the intent
-                takePictureIntent.resolveActivity(packageManager)?.also {
+                if (takePictureIntent.resolveActivity(packageManager) != null) {
                     // Create the File where the photo should go
                     val photoFile: File? = try {
                         createImageFile()
@@ -43,8 +43,19 @@ class HomeActivity : AppCompatActivity() {
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                        val requestFileIntent = Intent(Intent.ACTION_PICK).apply {
+                            type = "image/jpg"
+                        }
+
+                        val chooser = Intent.createChooser(requestFileIntent, "Some text here")
+                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(takePictureIntent))
+                        startActivityForResult(chooser, REQUEST_TAKE_PHOTO)
                     }
+                } else {
+                    val requestFileIntent = Intent(Intent.ACTION_PICK).apply {
+                        type = "image/jpg"
+                    }
+                    startActivityForResult(requestFileIntent, REQUEST_TAKE_PHOTO)
                 }
             }
         }
@@ -54,8 +65,15 @@ class HomeActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             val intent = Intent(this, ImpactActivity::class.java)
-            intent.putExtra(PHOTO_PATH, currentPhotoPath)
+            if (data?.data == null) {
+                intent.putExtra(PHOTO_PATH, currentPhotoPath)
+            } else {
+                data.data?.also { returnUri ->
+                    intent.putExtra(PHOTO_PATH, returnUri)
+                }
+            }
             startActivity(intent)
+
         }
     }
 
