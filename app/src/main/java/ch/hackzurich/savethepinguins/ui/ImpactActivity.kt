@@ -60,6 +60,8 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
                     id = 2
                 } else if (picturePath.endsWith("plum.jpg")) {
                     id = 0
+                } else if (picturePath.endsWith("banana.jpg")) {
+                    id = 4
                 }
             }
             Network.getPrediction(id, this)

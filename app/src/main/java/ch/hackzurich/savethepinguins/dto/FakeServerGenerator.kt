@@ -19,6 +19,7 @@ fun main(args: Array<String>) {
     val pasta = Ingredient(11, "Pasta", 5)
     val vegetableSauce = Ingredient(12, "Vegetable Sauce", 6)
     val plum = Ingredient(13, "Plum", 2)
+    val banana = Ingredient(14, "Banana", 4)
 
     val plums = Prediction(0, "Plum", mutableListOf(plum), 2)
     val pizza = Prediction(
@@ -35,8 +36,9 @@ fun main(args: Array<String>) {
     )
     val vegetarianLasagne =
         Prediction(3, "Vegetarian Lasagne", mutableListOf(pasta, vegetableSauce, mozzarella), 5)
+    val bananas = Prediction(4, "Banana", mutableListOf(banana), 5)
 
-    val all = mutableListOf<Prediction>(plums, pizza, hotDog, vegetarianLasagne)
+    val all = mutableListOf<Prediction>(plums, pizza, hotDog, vegetarianLasagne, bananas)
     val predictions = Predictions(all)
     val string = Json(JsonConfiguration.Stable).stringify(Predictions.serializer(), predictions)
     println(string)
