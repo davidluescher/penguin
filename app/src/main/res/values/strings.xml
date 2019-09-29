@@ -6,8 +6,8 @@
     <string name="impact_good">Good!</string>
     <string name="impact_neutral">OK!</string>
     <string name="impact_bad">Bad!</string>
-    <string name="motivation_good">Keep Going! Your penguin population increased!</string>
-    <string name="motivation_neutral">You\'re on a good way, but you can do better!</string>
-    <string name="motivation_bad">Oh Dear! Your penguin population just decreased!</string>
+    <string name="motivation_good">Keep Going! You\'re eating local and healthy.</string>
+    <string name="motivation_neutral">You\'re on a good way, but you can do better! Add more local veggies and fruit to your meal.</string>
+    <string name="motivation_bad">Oh Dear! Try to eat healty and local to save the penguins.</string>
     <string name="history">History</string>
 </resources>
