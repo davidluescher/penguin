@@ -91,11 +91,22 @@ class ImpactActivity : AppCompatActivity(), Network.PredictionReceived {
                 }
             )
 
+            lblDetailImpact.text = getString(
+                if (prediction.overallScore > 7) {
+                    R.string.impact_detail_bad
+                } else if (prediction.overallScore < 5) {
+                    R.string.impact_detail_good
+                } else {
+                    R.string.impact_detail_neutral
+                }
+            )
+
             Handler().postDelayed({
                 runOnUiThread {
                     web_view.visibility = View.VISIBLE
                     btnAction.visibility = View.VISIBLE
                     lblTitle.visibility = View.VISIBLE
+                    lblDetailImpact.visibility = View.VISIBLE
                     loadingView.visibility = View.GONE
                 }
             }, 1200)
