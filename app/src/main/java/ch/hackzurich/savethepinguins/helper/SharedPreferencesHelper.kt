@@ -10,10 +10,24 @@ object SharedPreferencesHelper {
     }
 
     fun writeScore(context: Context, score: Int) {
-        getSharedPrefs(context).edit().putInt("score", score).apply()
+        val sharedPrefs = getSharedPrefs(context)
+        val overallScore = sharedPrefs.getInt("overallScore", 0)
+        val numScore = sharedPrefs.getInt("noOfScores", 0)
+        getSharedPrefs(context).edit()
+            .putInt("overallScore", overallScore + score)
+            .putInt("noOfScores", numScore + 1)
+            .apply()
+
     }
 
     fun getScore(context: Context): Int {
-        return getSharedPrefs(context).getInt("score", 5)
+        val sharedPrefs = getSharedPrefs(context)
+        val overallScore = sharedPrefs.getInt("overallScore", 0)
+        val numScore = sharedPrefs.getInt("noOfScores", 0)
+        if (numScore == 0) {
+            writeScore(context, 5)
+            return 5
+        }
+        return overallScore / numScore
     }
 }
